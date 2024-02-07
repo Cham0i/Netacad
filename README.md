@@ -8,9 +8,13 @@ UTP - Unshielded Twister Pair. Primarly used in USA
 STP - Shielfed Twister Pair primarly used in EU
 Coxial Cables - The TV/ Satellite cables
 
+[!alttext](https://github.com/Cham0i/Netacad/blob/main/Netacad_Pics/UTP_STP.jpeg)
+
 RJ-45 have 8 pins while RJ-11 only have 4 pins. RJ-45 are more common now, RJ-11 are a legacy of the old telephone systems.
 
 RJ-45 have two different wiring standards. T-658A and T-658B
+
+[!alttext](https://github.com/Cham0i/Netacad/blob/main/Netacad_Pics/Rjs.jpg)
 
 IEEE (Pronounced I triple E) sets networking standards.
 
@@ -36,6 +40,8 @@ DATA LINK
 
 PHYSICAL}
 
+[!alttext](https://github.com/Cham0i/Netacad/blob/main/Netacad_Pics/OSI_TCP_Layers.png)
+
 # TCP/IP Model
 
 Application -Basically the Upper Layer of the OSI model
@@ -49,6 +55,7 @@ IEEE 802.3 is Ethernet
 A NIC drops any frames not meant for them. Switches gives frames to all ports except the input port. 
 
 A Ethernet frame consists of Destination MAC, Source MAC
+
 
 Switches communicate via MAC Addresses. All ports have a MAC Address
 
@@ -67,6 +74,8 @@ Preamble + Start Frame Delimiter + Destination MAC + Source MAC + Length Type + 
 
 7 + 1 + 6 + 6 + 2 + 46-1500 + 4
 
+[!alttext](https://github.com/Cham0i/Netacad/blob/main/Netacad_Pics/EthernetFrame.png)
+
 Hierarchial Network (specificallt distribution layer)
 
 Core;Network's backbone. Highspeed interconnectivity.Examples: Distribution modules, service modules, data centers, and WAN edge
@@ -81,6 +90,8 @@ Routing Table Entry
 
 Type...Network...Port
 C, L S, 0, D, Candidate default, 10.0.0.0/8 insert photo here
+
+[!alttext](https://github.com/Cham0i/Netacad/blob/main/Netacad_Pics/RoutingTable.jpg)
 
 The static default route is where packages are automatically routed in case the router doesn't recognize the IP. The default setting is usually to drop the packet.
 
