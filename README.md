@@ -114,14 +114,6 @@ A similar concept is used when routers distribute packets. A router uses Routing
 The static default route is where packages are automatically routed in case the router doesn't recognize the IP. The default setting is usually to drop the packet.
 [You can find additional information about routing protocols here](https://community.cisco.com/t5/networking-knowledge-base/dynamic-routing-protocols-ospf-eigrp-ripv2-is-is-bgp/ta-p/4511577)
 
-
-
-IANA
-
-IETF (Internet Engineering Task Force) Documents proposition to Internet rules using RFC (Request for Comment) documents
-
-EIA/TIA
-
 ### Types of Data
 - Volunteered data - This is created and explicitly shared by individuals, such as social network profiles. This type of data might include video files, pictures, text or audio files.
 - Observed data - This is captured by recording the actions of individuals, such as location data when using cell phones.
@@ -135,35 +127,50 @@ AA-AA-AA-AA-AA-AA-AA-AA-AA-AA-AA-AA-AA-AA-AA-AA
 AAAA:AAAA:AAAA:AAAA:AAAA:AAAA:AAAA:AAAA
 
 
+### Who controls the internet?
+
+IANA
+
+IETF (Internet Engineering Task Force) Documents proposition to Internet rules using RFC (Request for Comment) documents
+
+EIA/TIA
+
 RIR allocates public IPs to ISP who provide Ipv4 block to organizations or other smaller ISPS
 
 IANA (Internet Assigned Numbers Authority) manages all IPs and allocates to RIR (Reginal Internet Registries)
 
-Unicast; 0.0.0.0 - 223.255.255.255
-Multicast; To specific Pcs. 224.0.0.0 - 239.255.255.255 (Remember PC can have more than one IP address) Video streams RIPv2 (Routing Internet Protocol)
-Broadcast; To everyone 255.255.255.255
+### Classfull, Unicast, Multicast, Broadcast Addressing and Private IPs
 
-Default Subnet Classes
+These are the default subnet classes. It was orginally the way the internet was supposed to be distributed before it became more dynamic. If you had a specific IP within a class, you would have a certain subnet mask.
 
-Class A; 0.0.0.0/8 - 127.0.0.0/8
-16 million host addresses or 50%
+- Class A; 0.0.0.0/8 - 127.0.0.0/8 Which contained 16 million host addresses or 50% of the internet
+- Class B; 128.0.0.0/16 - 191.0.0.0/16 Which contained 65K host addresses or 25% of the internet
+- Class C; 192.0.0.0/24 - 223.255.255.0/24 Which contained 254 Host addresses or 12.5% of the internet
 
-Class B; 128.0.0.0/16 - 191.0.0.0/16
-65K host addresses or 25%
+Similarly, certain IPs were reserved for certain types of transmitions.
 
-Class C; 192.0.0.0/24 - 223.255.255.0/24
-254 Host addresses or 12.5%
+- Unicast; 0.0.0.0 - 223.255.255.255 or any specific IP in within classes A, B or C
+- Multicast; 224.0.0.0 - 239.255.255.255 or to specific computers within a group. (Remember that computers can have more than one IP address) Video streams RIPv2 (Routing Internet Protocol)
+- Broadcast; To everyone 255.255.255.255
 
+Lastly, because Ipv4 quickly ran out of usable IPs, private IP addresses were reserved to identify computers within a LAN.
+
+- 10.0.0.0/8
+- 172.16.0.0/12
+- 192.168.0.0/16
 
 ## Data Communications and Network Services
 
-DHCP(Dynamic Host Configuration Protocol)
-PC sends Discover (HELP I NEED AN IP!!)
-Server responds with IP Address Offer (Do you want this one?)
-PC responds with a Request (Yes) Which is done in a broadcast to inform other DHCP that their offers were rejected
-Server Acknowledges PC as having an assigned IP
+### DHCP(Dynamic Host Configuration Protocol)
 
-VLSM (Variable Length Subnet Mask)
+- PC sends a Discover message using broadcast IP and MAC addresses (HELP I NEED AN IP!!) 
+- Server responds with IP Address Offer message (Do you want to use this IP address?)
+- PC responds with a Request message (Yes) Which is also done with a broadcast in order to inform other DHCP servers that their offers were rejected
+- Server sends Acknowledgement message to PC for having the assigned IP
+
+Remember the acronym DORA
+
+### VLSM (Variable Length Subnet Mask)
 
 ## Home Network Basics
 
