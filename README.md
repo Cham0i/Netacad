@@ -73,24 +73,48 @@ The Transport, Data Link, and Physical layers are known as the lower layer. Proc
 ![alt text](https://github.com/Cham0i/Netacad/blob/main/Netacad_Pics/OSI_TCP_Layers.png)
 
 
-Application -Basically the Upper Layer of the OSI model
+Application - Basically the Upper Layer of the OSI model
 
 Internet - The transport layer of the OSI
 
 Network Access - The lower layer of OSI excluding Transport
 
+### Hierarchical Designs
+
+The most effecient way to design a network is to design it as a hierarchy. This way the most local communications are done localy, and only communications that are remote move up the hierarchy. This design has 3 layers:
+
+- Access Layer - This includes multiple end devices connected to a switch. If the switch fails, only the end devices connected to the switch will be affected.
+- Distribution Layer - This layer connects multiple LANs in the access layer together. This could mean that they are all a bigger LAN connected by a more powerful switch or simply many LANs together connect by a router. This layer usually deals with policy-based connectivity and controls.
+- Core Layer - This layer is the network's backbone. It's essentially a step-up from the distribution layer that provides highspeed interconnectivity, except that there is no other redundancy after it. If this layer fails, the rest of the network will fall. This layer contains the best and fastest switches and routers. Examples: Distribution modules, service modules, data centers, and WAN edge
+
+### Using Routers
+
+Routers can be placed to divide networks for a variety of reasons. A router could be placed to restrict the scope of a broadcast and slowing down a network with excessive broadcasting. A router could also segregate LANS for security reasons, where one LAN has information that is restricted to only certain computers or to hide the IP address of those sensitive devices. A common use of a router is simply to connect LANs that are geographically seperated from each other (AKA the internet). Finally, a router may logically group computers to that each LAN may only access certain printers, servers, resources, etc.
+
+### Encapsulation, Address Resolution Protocol (ARP), MAC Address Table, and Routing Tables 
+
+Encapsulation is when data is joined with a destination and source address. Since every Network Interface Card has a MAC, data can be transported to a specific interface via a switch.
+
+Preamble + Start Frame Delimiter + Destination MAC + Source MAC + Length Type + Data + Frame Check Sequence
+
+7 + 1 + 6 + 6 + 2 + 46-1500 + 4
+
+![alt text](https://github.com/Cham0i/Netacad/blob/main/Netacad_Pics/EthernetFrame.png)
+
+Within a LAN, the ethernet frame is distributed by a switch which uses the MAC address to figure out where to send the frame. 
+
+If the MAC address is unknown, but the IP address is known, an interface can use Address Resolution Protocol (ARP) to broadcast a signal to every interface in the LAN looking to match the IP. If one of the interfaces matches the IP, that interface will respond with its MAC address. The original sender can then receive the MAC address and use it to send its packets to that specific MAC.
+
+That's where a switch's MAC Address Table comes into play. Before the advent of switches, a hub would connect LANs that would merely transmit all frames to all interfaces. A NIC would then simply drop all the frames not meant for them; however with many frames being sent at once, NICs would have to individually sort many frames to know which one was meant for them. Now the filtering is done with switches. Switches use MAC tables to record the MAC address of each interface. Once a frame is send to the switch, the switch reads the source MAC and associates it with the interface it came from. Then is reads the frame's destination MAC address and sends the frame only to the corresponding NIC. The switch would only broadcast a frame if it couldn't find an associated MAC address. This device greatly reduced the amount of frames that individual NICs had to sort.
+
+A similar concept is used when routers distribute packets. A router uses Routing Table to determine which interface it should send packet to in order to reach the destination Network. It re-encapsulates an ethernet frame with the source MAC for its own interface and the destination MAC to either another router interface or to the destinations MAC if the interface matches the NID associated with the IP destination. A router can use ARP to find the MAC within a network if it doesn't know the MAC. 
+
+![alt text](https://github.com/Cham0i/Netacad/blob/main/Netacad_Pics/RoutingTable.jpg)
+
+The static default route is where packages are automatically routed in case the router doesn't recognize the IP. The default setting is usually to drop the packet.
+[You can find additional information about routing protocols here](https://community.cisco.com/t5/networking-knowledge-base/dynamic-routing-protocols-ospf-eigrp-ripv2-is-is-bgp/ta-p/4511577)
 
 
-IEEE 802.3 is Ethernet
-
-A NIC drops any frames not meant for them. Switches gives frames to all ports except the input port. 
-
-A Ethernet frame consists of Destination MAC, Source MAC
-
-
-Switches communicate via MAC Addresses. All ports have a MAC Address
-
-IEEE (pronounce I triple E)
 
 IANA
 
@@ -98,50 +122,18 @@ IETF (Internet Engineering Task Force) Documents proposition to Internet rules u
 
 EIA/TIA
 
-
+### Types of Data
 - Volunteered data - This is created and explicitly shared by individuals, such as social network profiles. This type of data might include video files, pictures, text or audio files.
 - Observed data - This is captured by recording the actions of individuals, such as location data when using cell phones.
 - Inferred data - This is data such as a credit score, which is based on analysis of volunteered or observed data.
 
-## Data Communications and Network Services
-
-Hexadecimals -_-
+### Hexadecimals -_-
 Are written with 0x to indicate hexidecimal. Represents values from 0-15 with 16 characters (0-9, A-F) called hextets. Each hextet represents 4 hexidecimal values. (8,4,2,1)
 
 Ipv6 uses hexadecimals to represent their huge numbers. 
 AA-AA-AA-AA-AA-AA-AA-AA-AA-AA-AA-AA-AA-AA-AA-AA
 AAAA:AAAA:AAAA:AAAA:AAAA:AAAA:AAAA:AAAA
 
-Encapsulation is when data is joined with a destination and source address.
-
-Preamble + Start Frame Delimiter + Destination MAC + Source MAC + Length Type + Data +Frame Check Sequence
-
-7 + 1 + 6 + 6 + 2 + 46-1500 + 4
-
-![alt text](https://github.com/Cham0i/Netacad/blob/main/Netacad_Pics/EthernetFrame.png)
-
-Hierarchial Network (specificallt distribution layer)
-
-Core;Network's backbone. Highspeed interconnectivity.Examples: Distribution modules, service modules, data centers, and WAN edge
-
-Distribution; Policy-based connectivity and controls
-
-Access; End devices and printers
-
-Routers can divide and contain networks. Segmentation security, location, and logical grouping. Connects layer 3 nets. Routes based on IP's (layer 3).
-
-Routing Table Entry
-
-Type...Network...Port
-C, L S, 0, D, Candidate default, 10.0.0.0/8 insert photo here
-
-![alt text](https://github.com/Cham0i/Netacad/blob/main/Netacad_Pics/RoutingTable.jpg)
-
-The static default route is where packages are automatically routed in case the router doesn't recognize the IP. The default setting is usually to drop the packet.
-
-If host A and B are not in the same Net. Host A will encapsulate the frame with the router's MAC
-
-Router uses Routing Table to determine which interface it should send packet to inorder to reach destination Net (packet) Rebuilds ethernet frame to have source MAC as arouters and detinations IP either to another router interface or to destinations IP MAC (which is found using ARP Address Resolution Protocal table)
 
 RIR allocates public IPs to ISP who provide Ipv4 block to organizations or other smaller ISPS
 
@@ -162,6 +154,9 @@ Class B; 128.0.0.0/16 - 191.0.0.0/16
 Class C; 192.0.0.0/24 - 223.255.255.0/24
 254 Host addresses or 12.5%
 
+
+## Data Communications and Network Services
+
 DHCP(Dynamic Host Configuration Protocol)
 PC sends Discover (HELP I NEED AN IP!!)
 Server responds with IP Address Offer (Do you want this one?)
@@ -172,7 +167,7 @@ VLSM (Variable Length Subnet Mask)
 
 ## Home Network Basics
 
-
+IEEE 802.3 is Ethernet
 
 ## Introduction to Cisco Networking
 
