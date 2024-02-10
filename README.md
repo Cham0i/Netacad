@@ -1,54 +1,85 @@
-### Cisco NetAcad Essentials
+# Cisco NetAcad Essentials
 
 ## Getting Online
 
-# Cables/ Physical Mediums
+### Cables/ Physical Mediums
 
-UTP - Unshielded Twister Pair. Primarly used in USA
-STP - Shielfed Twister Pair primarly used in EU
-Coxial Cables - The TV/ Satellite cables
+There are three commonly used cables in IT. 
+
+The first are Copper Twisted Pair cables. They can be classified by their shielding, number of pins, and wiring standards.
+
+UTP - Unshielded Twister Pair. They are flexible without any metal shielding to prevent interference. They are primarly used in North America
+STP - Shielded Twister Pair. They are more rigid but defend against interference. They are primarly used in Europe or anywhere with lots of interference.
 
 ![alt text](https://github.com/Cham0i/Netacad/blob/main/Netacad_Pics/UTP_STP.jpeg)
 
-RJ-45 have 8 pins while RJ-11 only have 4 pins. RJ-45 are more common now, RJ-11 are a legacy of the old telephone systems.
+RJ-45 have 8 pins while RJ-11 only have 4 pins. RJ-45 are more common now; RJ-11 are a legacy of the old telephone systems.
 
-RJ-45 have two different wiring standards. T-658A and T-658B
+The EIA/TIA established two different wiring standards for the RJ-45s. T-658A and T-658B
 
-![alt text](https://github.com/Cham0i/Netacad/blob/main/Netacad_Pics/Rjs.jpg)
+![alt text](https://github.com/Cham0i/Netacad/blob/main/Netacad_Pics/RJs.jpg)
 
-IEEE (Pronounced I triple E) sets networking standards.
+The second are Coxial Cables. These cables were primarly used for TV and satellite connections, but now also serve the additional purpose of providing internet connections. 
 
-IETF (Internet Engineering Task Force) Documents proposition to Internet rules using RFC (Request for Comment) documents
+Lastly, optic fiber cables are the most modern and fastest type of medium. They use light to transfer signals between interfaces. 
 
-EIA/TIA
+These mediums have a certain bandwidth. The bandwidth is the maximum amount of data that can be transfered within a second. Higher Categories have higher data transfer rates and more twists per foot (twisted pair cables only) to prevent external electromagnetic interference and radio frequency interference.
+
+- Cat 3 - 10mps/16MHz
+- Cat 5 - 100mps/100MHz
+- Cat 5e - 1kps/100Mhz
+- Cat 6 - 1kps/250MHzro
+- Cat 6a - 1kps/500MHz
+- Cat 7 - 10Gps/600Mhz
+- Coaxial Cable - 100mps
+- Fiber Optic - 100Gps
+
+This doesn't mean that data will always transfer at this given rate. Throughput is the actual measure of bits transfered per second. It can be affected by a number of factors including:
+
+- The amount of data being sent and received over the connection
+- The types of data being transmitted
+- The *latency* (or the amount of time it takes for data to travel) created by the number of network devices encountered between source and destination
+
+### Types of Networks
+
+The most common type of network is a Server-Client network. These networks are centralized and require a group of computers called servers to provide information to client computers. The client computers are usually what we associate computers to be; a client could be a PC (personal computer), a workstation, a phone, a gaming console, etc. The server would be the one to provide services to these client computers such as Netflix streaming servers, Google search servers, school district active directory servers, email servers, multiplayer gaming servers, etc.
+
+Another type of network is a P2P (Peer-to-Peer) network. These networks are decentralized because each computer is simultaneously a server and client. Unfortunately this means there is no central administration to keep the network safe, and its also slower because each computer must actively download and upload files from and to other computers. 
+
+### Network Medias
+
+These networks can be connected with different medias.
+
+- Metal wires within cables - Data is encoded into electrical impulses. These include twisted pair and coaxial cables.
+- Glass or plastic fibers within cables (fiber-optic cable) - Data is encoded into pulses of light.
+- Wireless transmission - Data is encoded via modulation of specific frequencies of electromagnetic waves.
+
+To determine which network media is most apporpriate ask yourself these questions:
+
+- What is the maximum distance that the media can successfully carry a signal?
+- What is the enviroment in which the media will be installed?
+- What is the amount of data and at what speed must it be transmitted?
+- What is the cost of the media and installation?
 
 
 ## Network Protocol and Architecture
 
-# OSI Model
+### OSI Model and TCP/IP Model
 
-{APP                #Known as the upper layer. Which includes Email, browser, file transfer, DNS, etc
-PRESENTATION
+The App, Presentation and Session layers are known as the upper layer. Processes in this layer include email, browser, file transfer, DNS, etc.
 
-SESSION}
-
-{TRANSPORT         #Known as the lower layer. Which includes Firewall, video and voice streams, IP Addressing routing, NICS, Drivers, WAN connectivity frame, Physical mediums, hubs, repeaters, etc
-
-NETWORK
-
-DATA LINK
-
-PHYSICAL}
+The Transport, Data Link, and Physical layers are known as the lower layer. Processes and devices in this layer include Firewall, video and voice streams, IP Addressing routing, NICS, Drivers, WAN connectivity frame, physical mediums, hubs, repeaters, etc
 
 ![alt text](https://github.com/Cham0i/Netacad/blob/main/Netacad_Pics/OSI_TCP_Layers.png)
 
-# TCP/IP Model
 
 Application -Basically the Upper Layer of the OSI model
 
 Internet - The transport layer of the OSI
 
 Network Access - The lower layer of OSI excluding Transport
+
+
 
 IEEE 802.3 is Ethernet
 
@@ -58,6 +89,19 @@ A Ethernet frame consists of Destination MAC, Source MAC
 
 
 Switches communicate via MAC Addresses. All ports have a MAC Address
+
+IEEE (pronounce I triple E)
+
+IANA
+
+IETF (Internet Engineering Task Force) Documents proposition to Internet rules using RFC (Request for Comment) documents
+
+EIA/TIA
+
+
+- Volunteered data - This is created and explicitly shared by individuals, such as social network profiles. This type of data might include video files, pictures, text or audio files.
+- Observed data - This is captured by recording the actions of individuals, such as location data when using cell phones.
+- Inferred data - This is data such as a credit score, which is based on analysis of volunteered or observed data.
 
 ## Data Communications and Network Services
 
