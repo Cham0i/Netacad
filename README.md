@@ -13,7 +13,7 @@ STP - Shielded Twister Pair. They are more rigid but defend against interference
 
 ![alt text](https://github.com/Cham0i/Netacad/blob/main/Netacad_Pics/UTP_STP.jpeg)
 
-RJ-45 have 8 pins while RJ-11 only have 4 pins. RJ-45 are more common now; RJ-11 are a legacy of the old telephone systems.
+RJ-45 have 8 pins while RJ-11 only have 4 pins. RJ-45 are more common now; RJ-11 are a legacy of the old telephone systems
 
 The EIA/TIA established two different wiring standards for the RJ-45s. T-658A and T-658B
 
@@ -172,9 +172,92 @@ Remember the acronym DORA
 
 ### VLSM (Variable Length Subnet Mask)
 
+### TCP vs UDP
+
+The Transport Control Protocol ensures that all packets are transfered. Services like HTML make use of TCP to ensure that all aspects of a website are transferred accurately.
+
+on the other hand, simply transfers all packets as quickly as possible without regard for packet-loss. It its more suitable for video streaming, and gaming, where missing one frame is acceptable.
+
+### Ports
+
+Well-known ports:
+
+TCP Ports:
+
+- 20 FTP - Used in File Transfering for Data
+- 21 FTP - Used in File Transfering for control
+- 22 SSH - Secure Shell used for encrypted remote access
+- 23 Telnet - Unencrypted remote access
+- 25 SMTP - Sends email/attachment from client or server to server
+- 53 DNS - Domain Name System finds IP for domain name
+- 80 HTTP - HyperTextTransferProtocol webpages without encryption
+- 110 POP3 - Retrieves email by downloading and then deletes email off server
+- 143 IMAP - Retrieves email but keeps email in server
+- 443 HTTPS - webpages with encryption
+
+UDP Ports:
+
+- 53 DNS
+- 67 DHCP (server)
+- 68 DHCP (client)
+- 69 TFTP
+- 161 SNMP
+
+Uniform Resource Locator (URL) is Https:www.domain.com. URN (name) is www.domain.com. URI (identifier) is https:www.domain.com/page34 so URL + the fragment
+
+Registered Ports 1024-49151 are reserved for certain applications. Private Ports 49152-65535 are open for any application to use.
+
 ## Home Network Basics
 
 IEEE 802.3 is Ethernet
+
+bluetooth uses 2.4 GHz over short range, low-speed connections
+
+5G uses small cell towers hooked up to wired infastracture. Its 10x faster than DSL (Digital Subscriber Line)
+
+Carrier Sense Multiple Access with Collision Avoidance (CSMA/CA) is how devices on routers communicate whilst sharing the wifi channels.
+[Read more here](https://www.geeksforgeeks.org/carrier-sense-multiple-access-csma/)
+
+WEP (Wired Equivalent Privacy) uses pre-configured keys for encryption. The problem was that it used the same key across all connections without change. 
+In contrast WPA (Wifi Protected Access) uses new keys for each client session. WPA2-PSK doesn't use pre-configured keys and instead generates its keys based on the passphrase.
+
+The default option of any router is to not have any passphrase (AKA Open)
+
+Port fowarding allows a traffic from a port to transmit to a certain NIC. It is static. Uses Sockets (IP; Port#)
+Port Triggering does the same, except that incoming ports are only opened once outbound/triggered range are used. It is dynamic.
+
+Software as a Service (SaaS)
+
+Plataform as a Service (PaaS)
+
+Infastructure as a Service (IaaS)
+
+IT as a Service (ITS)
+
+MAC filtering is when an access point uses a predetermined list of MAC addresses to block connection to it.
+
+- Types of Ports (Will it support twisted pair, fiber optic, coaxial?)
+- Speed Requirement (Which type of uplink ports will it have? 10/100 Ethernet? 10/100/1000 Gigabit Ethernet?)
+- Expandability (Is the switch modular or fixed?)
+- Manageability (Is the switch configurable? Cheap, non-cisco switches are usually plug-n-play)
+
+1. POST (Power On Self Test)
+2. Rapid green flashing (good) SYST LED Red (fucked)
+3. Loads IOS image unto RAM from in flash memory. IOS image facilitates basic operations
+4. Loads Startup-config file unto RAM from NVRAM.
+
+Parts of a router
+
+Router's NIM (Network Interface Modules) allow routing capabilities to serial, DSL, switch ports, wireless, etc.
+
+Management Interface and AUX ports are simply RJ-45 and USB Console cable connections. They are out-of-band connections. Using SSH or Telnet is considered an in-band connection.
+
+LAN Interfaces are where the Networks or LANS are connected to the router
+
+adware is spyware?
+
+A keyword is a specific parameter defined by the OS. A arguement is a variable that can be inputed by the user.
+Hostname (keyword) TheBestRouterInDaWorld (argument)
 
 ## Introduction to Cisco Networking
 
