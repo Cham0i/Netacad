@@ -261,9 +261,58 @@ Hostname (keyword) TheBestRouterInDaWorld (argument)
 
 ## Introduction to Cisco Networking
 
-1.Place Devices. Connect unlike devices with copper-straight through and similar devices with Cross-over.
-2. Configure basic device settings (assume global configuration mode)
-2.1 Configure computers by using IP configuration and inputing IP, SM and DG
-2.2 Configure Router using console cable
-a. Device name 
-> blockcode?
+- Place Devices. Connect unlike devices with copper-straight through and similar devices with Cross-over.
+- Configure basic device settings
+- Configure computers by using IP configuration and inputing IP, SM and DG
+- Configure Router using console cable (assume global configuration mode)
+
+For clarification () means your input
+
+<pre>enable
+config t</pre>
+  
+a. Device name
+<pre>hostname ()</pre>
+b. Configure Domain
+<pre>ip domain-name (.com,.net,etc.)</pre>
+c. Priviledge EXEC password
+<pre>enable secret ()</pre>
+d. Console and Virtual Terminal passwords
+<pre>line Con 0
+Password ()
+login
+exit</pre>
+
+<pre>line vty 0 15
+password ()
+login
+exit</pre>
+
+e. Encrypt login passwords
+<pre>service password-encryption</pre>
+f.Create local database account 
+<pre>username () Secret ()</pre>
+g. Configure RSA Key (Use 1024 bits when prompted)
+<pre>crypto key generate rsa</pre>
+h.Virtual terminal enable ssh and login with local database account
+<pre>line vty 0 15
+transport input ssh
+login local
+exit</pre>
+i.Switch to SSH version 2
+<pre>ip ssh version 2</pre>
+j.Configure banner
+<pre>banner motd "()"</pre>
+k.Configure time
+<pre>do clock set hh:mm:ss 2 Jan 2024</pre>
+l. Set up interfaces. use "shut" instead of "no shut" if you want the int administratively down
+<pre>int (g0/1, f0/1, vlan1, etc.)
+ip add (ip) (sm)
+description ()
+no shut
+exit</pre>
+Alternatively if you want to configure multiple interfaces (for example Fast ethernet 1-24 and Gigabit ethernet 1)
+<pre>int range (f0/1-24,g0/1)</pre>
+m. Save running-conf
+<pre>exit
+copy run start</pre>
