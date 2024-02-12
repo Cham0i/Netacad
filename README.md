@@ -176,9 +176,15 @@ Lastly, because Ipv4 quickly ran out of usable IPs, private IP addresses were re
 - PC responds with a Request message (Yes) Which is also done with a broadcast in order to inform other DHCP servers that their offers were rejected
 - Server sends Acknowledgement message to PC for having the assigned IP
 
+![alt text](https://github.com/Cham0i/Netacad/blob/main/Netacad_Pics/DHCP.jpg)
+
 Remember the acronym DORA
 
 ### VLSM (Variable Length Subnet Mask)
+
+This is where subnets are created around the necessity of any given subnet. Remember to feed the fattest network first, and 2 IPs will always be unusable.
+NID1 + 128, 64, 32, 16, 8, 4, 2, or 1 (depending on the amount of IPs needed in a network) = NID2. Subtract 1 from the NID2 to get NID1s broadcast. Subtract another to get the last usable IP. And of course, add 1 to NID1 to get the first usable IP.
+
 
 ### TCP vs UDP
 
