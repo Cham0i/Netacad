@@ -46,6 +46,8 @@ The most common type of network is a Server-Client network. These networks are c
 
 Another type of network is a P2P (Peer-to-Peer) network. These networks are decentralized because each computer is simultaneously a server and client. Unfortunately this means there is no central administration to keep the network safe, and its also slower because each computer must actively download and upload files from and to other computers. 
 
+![alt text](https://github.com/Cham0i/Netacad/blob/main/Netacad_Pics/p2p.jpg)
+
 ### Network Medias
 
 These networks can be connected with different medias.
@@ -105,9 +107,15 @@ Within a LAN, the ethernet frame is distributed by a switch which uses the MAC a
 
 If the MAC address is unknown, but the IP address is known, an interface can use Address Resolution Protocol (ARP) to broadcast a signal to every interface in the LAN looking to match the IP. If one of the interfaces matches the IP, that interface will respond with its MAC address. The original sender can then receive the MAC address and use it to send its packets to that specific MAC.
 
+![alt text](https://github.com/Cham0i/Netacad/blob/main/Netacad_Pics/ARP.jpg)
+
 That's where a switch's MAC Address Table comes into play. Before the advent of switches, a hub would connect LANs that would merely transmit all frames to all interfaces. A NIC would then simply drop all the frames not meant for them; however with many frames being sent at once, NICs would have to individually sort many frames to know which one was meant for them. Now the filtering is done with switches. Switches use MAC tables to record the MAC address of each interface. Once a frame is send to the switch, the switch reads the source MAC and associates it with the interface it came from. Then is reads the frame's destination MAC address and sends the frame only to the corresponding NIC. The switch would only broadcast a frame if it couldn't find an associated MAC address. This device greatly reduced the amount of frames that individual NICs had to sort.
 
-A similar concept is used when routers distribute packets. A router uses Routing Table to determine which interface it should send packet to in order to reach the destination Network. It re-encapsulates an ethernet frame with the source MAC for its own interface and the destination MAC to either another router interface or to the destinations MAC if the interface matches the NID associated with the IP destination. A router can use ARP to find the MAC within a network if it doesn't know the MAC. 
+![alt text](https://github.com/Cham0i/Netacad/blob/main/Netacad_Pics/hubs.png)
+
+A similar concept is used when routers distribute packets. A router uses Routing Table to determine which interface it should send packet to in order to reach the destination Network. It re-encapsulates an ethernet frame with the source MAC for its own interface and the destination MAC to either another router interface or to the destinations MAC if the interface matches the NID associated with the IP destination. A router can use ARP to find the MAC within a network if it doesn't know the MAC.
+
+![alt text](https://github.com/Cham0i/Netacad/blob/main/Netacad_Pics/Routing.jpg)
 
 ![alt text](https://github.com/Cham0i/Netacad/blob/main/Netacad_Pics/RoutingTable.jpg)
 
@@ -203,7 +211,9 @@ UDP Ports:
 - 69 TFTP
 - 161 SNMP
 
-Uniform Resource Locator (URL) is Https:www.domain.com. URN (name) is www.domain.com. URI (identifier) is https:www.domain.com/page34 so URL + the fragment
+URL (Uniform Resource Locator) URN (name) URI (identifier)
+
+![alt text](https://github.com/Cham0i/Netacad/blob/main/Netacad_Pics/URL.png)
 
 Registered Ports 1024-49151 are reserved for certain applications. Private Ports 49152-65535 are open for any application to use.
 
@@ -215,16 +225,23 @@ bluetooth uses 2.4 GHz over short range, low-speed connections
 
 5G uses small cell towers hooked up to wired infastracture. Its 10x faster than DSL (Digital Subscriber Line)
 
+### Wireless Router
+
 Carrier Sense Multiple Access with Collision Avoidance (CSMA/CA) is how devices on routers communicate whilst sharing the wifi channels.
 [Read more here](https://www.geeksforgeeks.org/carrier-sense-multiple-access-csma/)
 
 WEP (Wired Equivalent Privacy) uses pre-configured keys for encryption. The problem was that it used the same key across all connections without change. 
 In contrast WPA (Wifi Protected Access) uses new keys for each client session. WPA2-PSK doesn't use pre-configured keys and instead generates its keys based on the passphrase.
 
-The default option of any router is to not have any passphrase (AKA Open)
+The default option of any router is to not have any passphrase (AKA Open).
+MAC filtering is when an access point uses a predetermined list of MAC addresses to block connection to it.
+
+### Port Fowarding and Triggering
 
 Port fowarding allows a traffic from a port to transmit to a certain NIC. It is static. Uses Sockets (IP; Port#)
 Port Triggering does the same, except that incoming ports are only opened once outbound/triggered range are used. It is dynamic.
+
+### Services
 
 Software as a Service (SaaS)
 
@@ -234,7 +251,7 @@ Infastructure as a Service (IaaS)
 
 IT as a Service (ITS)
 
-MAC filtering is when an access point uses a predetermined list of MAC addresses to block connection to it.
+### Choosing and Starting-up a Switch
 
 - Types of Ports (Will it support twisted pair, fiber optic, coaxial?)
 - Speed Requirement (Which type of uplink ports will it have? 10/100 Ethernet? 10/100/1000 Gigabit Ethernet?)
@@ -246,7 +263,7 @@ MAC filtering is when an access point uses a predetermined list of MAC addresses
 3. Loads IOS image unto RAM from in flash memory. IOS image facilitates basic operations
 4. Loads Startup-config file unto RAM from NVRAM.
 
-Parts of a router
+### Parts of a router
 
 Router's NIM (Network Interface Modules) allow routing capabilities to serial, DSL, switch ports, wireless, etc.
 
@@ -254,12 +271,14 @@ Management Interface and AUX ports are simply RJ-45 and USB Console cable connec
 
 LAN Interfaces are where the Networks or LANS are connected to the router
 
+### Malware
+
 adware is spyware?
+
+## Introduction to Cisco Networking
 
 A keyword is a specific parameter defined by the OS. A arguement is a variable that can be inputed by the user.
 Hostname (keyword) TheBestRouterInDaWorld (argument)
-
-## Introduction to Cisco Networking
 
 - Place Devices. Connect unlike devices with copper-straight through and similar devices with Cross-over.
 - Configure basic device settings
@@ -316,3 +335,6 @@ Alternatively if you want to configure multiple interfaces (for example Fast eth
 m. Save running-conf
 <pre>exit
 copy run start</pre>
+
+For a switch to define a default gateway
+<pre>ip default-gateway</pre>
