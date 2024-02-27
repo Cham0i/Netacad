@@ -1,3 +1,30 @@
+# Software Stuff
+
+## Virtualization
+
+A sandbox enviromenet is used for testing. A virtual Machine Monitor VMM or Hypervisort is used for virutalization. Type 1 hypervisors AKA Bare Metal, are installed directly on hardware. Type 2 AKA Hosted, are installed on top of a already existing OS (Virtual Box).
+
+Virtual Applience: VM with dedicated purpose. Specialized. Datastore: VM Storage device. [See the Manual for all the rest of the VMWare terms and architcture.]()
+
+virtual center(VC): Server that manages hosts, datastore, and VMS w/GUI
+
+5 types of virtualization are; Hardware, Software, Storage (multiple physical hdd apearing as one), Network (Vlans), desktop (virtual desktops)
+
+VMs increase avalibility (always up), management (tracks changes and status of VMs), scalability (ability to quickly grow/ the limit of an infastructure), optimization (effecient use of resources)
+
+BCCS Battle Command Common Services, Tactical Army Command Post. UPS are there to do a successful shutdown, not to keep operating. (Storage + ESXI + UPS)
+
+### RAIDS
+0. Stripping (superior i/o performance, diversified across disks)
+1. mirroring (copy, costly, fast)
+5. stripping w/parity
+6. stripping w/ double parity
+10. mirroring and stripping 
+
+## VOIP
+
+Cisco Unified Communications Manager (CUCM)/ Call Manager is the software used to manage VOIP. 
+
 # Cisco NetAcad Essentials
 
 ## Getting Online
@@ -344,3 +371,4 @@ copy run start</pre>
 
 For a switch to define a default gateway
 <pre>ip default-gateway</pre>
+v
