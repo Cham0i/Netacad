@@ -372,3 +372,75 @@ copy run start</pre>
 For a switch to define a default gateway
 <pre>ip default-gateway</pre>
 v
+
+
+### Focking Fundamenetals
+To require a 'long' password
+<pre>security passwords min-length (length of characters)</pre>
+To deter brute force attacks.
+<pre>login block-for (seconds blocked) attempts (max number of attempts) within (period of seconds that trigger the block)</pre>
+To edit how long a session lasts before reverting to user EXEC mode
+<pre>exec-timeout (min) (sec)</pre>
+(Psst. 'exec-timeout 0 0' is how you disable timeouts)
+Stops cable messages from interfering
+<pre>logging synchronous</pre>
+
+### Inter-VLAN routing
+Create vlans in your switch
+<pre>vlan ()
+name ()</pre>
+Assign IP to VLAN
+(Nah you should know this by now. Scroll up nerd)
+To make interfaces into access. Remember to use "int range" if you need to edit multiple interfaces
+<pre>int (f0/1,2,3,etc.)
+switchport mode access
+switchport access vlan (the vlan number this int belongs to)</pre>
+To make interfaces into trunks. Only use for int between switches, on VOIP, or switch to Router when sub-interfaces are involved
+<pre>switchport mode trunk
+switchport trunk allowed vlan (vlans that are allowed to communicate using this trunk. Insert vlan number here. If multiple use comma without spaces. "44,999,13")
+switchport native vlan (vlan that is native)</pre>
+(The "native VLAN mismatch discovered" error happens when the native vlans are not the same between interfaces.)
+Check yourself before yo wreck yourself
+<pre>show vlan
+show int trunk
+show int (f0/x) switchport
+</pre>
+
+To actually make the VLAN talk amongst each other configure the router using sub interfaces
+<pre>int (f0/1.X  X is typically the vlan number)
+encapsulation dot1q (vlan number)
+ip add (IP) (SM)</pre>
+Remember to "no shut" the phyiscal interfaces that supports the sub interfaces. (f0/1 or f0/2 or whatever)
+
+Lastly remember to use the Management VLAN sub interface as the "ip default-gateway"
+
+### Port Security
+ALWAYS SHUT BEFORE YOU ENABLE PORT SEC!!!!!
+<pre>int ()
+shut</pre>
+Do this to enable port sec
+<pre>switchport port-security</pre>
+If the port is dynamic and can't enable port sec, that means the port hasn't been configured to access mode. See above.
+If you need different maximum amount of mac addresses
+<pre>switch port-security maximum (max number of macs recorded) </pre>
+
+To actually add MACs you can either do it manually
+<pre>switchport port-security mac-address (MAC of int)</pre>
+Use "ipconfig /all" to find the MAC address of a PC int or "ip int ()" for cisco device int
+
+or have it read automatically
+<pre>switchport port-security mac-address sticky</pre>
+
+Use whichever method is instructed. Remember adding "no" before any command, erases that command from the run.conf. Example "no switchport port-security mac-address x.x.x" deletes x.x.x from the MAC list
+
+check yourself
+<pre>show port-security
+show port-security address
+show port-security int ()</pre>
+
+### DHCP
+Configure the IP,SM, DG as if the DHCP server was actually part of that VLAN. Yet for the IP address of the physical server, configure it based on the network its actually in.
+
+There are two types of serves in this world, ones that ping and ones that don't. You ping.
+<pre>ip helper-address (IP of the DHCP server)</pre>
+This command is done within the int of the router within the LAN that needs DHCP services.
