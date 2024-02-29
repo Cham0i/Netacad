@@ -374,7 +374,8 @@ For a switch to define a default gateway
 v
 
 
-### Focking Fundamenetals
+### Fucking Fundamenetals
+
 To require a 'long' password
 <pre>security passwords min-length (length of characters)</pre>
 To deter brute force attacks.
@@ -382,7 +383,8 @@ To deter brute force attacks.
 To edit how long a session lasts before reverting to user EXEC mode
 <pre>exec-timeout (min) (sec)</pre>
 (Psst. 'exec-timeout 0 0' is how you disable timeouts)
-Stops cable messages from interfering
+
+Stops the annoying cable messages from appearing
 <pre>logging synchronous</pre>
 
 ### Inter-VLAN routing
@@ -390,39 +392,41 @@ Create vlans in your switch
 <pre>vlan ()
 name ()</pre>
 Assign IP to VLAN
-(Nah you should know this by now. Scroll up nerd)
+<pre>(Nah you should know this by now. Scroll up nerd)</pre>
 To make interfaces into access. Remember to use "int range" if you need to edit multiple interfaces
 <pre>int (f0/1,2,3,etc.)
 switchport mode access
 switchport access vlan (the vlan number this int belongs to)</pre>
 To make interfaces into trunks. Only use for int between switches, on VOIP, or switch to Router when sub-interfaces are involved
 <pre>switchport mode trunk
-switchport trunk allowed vlan (vlans that are allowed to communicate using this trunk. Insert vlan number here. If multiple use comma without spaces. "44,999,13")
-switchport native vlan (vlan that is native)</pre>
-(The "native VLAN mismatch discovered" error happens when the native vlans are not the same between interfaces.)
-Check yourself before yo wreck yourself
+switchport trunk allowed vlan (VLAN numbers here "10,20,999" etc.)
+switchport native vlan (NativeVLAN Number here)</pre>
+The "native VLAN mismatch discovered" error happens when the native VLANs are not the same between interfaces. You might not even have to use the last command if no Native VLAN is present
+
+Troubleshooting *Check yourself before yo wreck yourself*
 <pre>show vlan
 show int trunk
 show int (f0/x) switchport
 </pre>
 
-To actually make the VLAN talk amongst each other configure the router using sub interfaces
+To make the VLANs talk amongst each other, configure the router using sub interfaces
 <pre>int (f0/1.X  X is typically the vlan number)
 encapsulation dot1q (vlan number)
 ip add (IP) (SM)</pre>
 Remember to "no shut" the phyiscal interfaces that supports the sub interfaces. (f0/1 or f0/2 or whatever)
 
-Lastly remember to use the Management VLAN sub interface as the "ip default-gateway"
+Lastly, remember to use the Management VLAN sub interface as the "ip default-gateway"
 
 ### Port Security
 ALWAYS SHUT BEFORE YOU ENABLE PORT SEC!!!!!
 <pre>int ()
 shut</pre>
-Do this to enable port sec
+Now we may begin. Do this to enable port security
 <pre>switchport port-security</pre>
-If the port is dynamic and can't enable port sec, that means the port hasn't been configured to access mode. See above.
-If you need different maximum amount of mac addresses
-<pre>switch port-security maximum (max number of macs recorded) </pre>
+If the port is dynamic and you can't enable port security, that means the port hasn't been configured to access mode. See above.
+
+If you need a different maximum amount of MAC addresses
+<pre>switch port-security maximum (max number of MACs recorded) </pre>
 
 To actually add MACs you can either do it manually
 <pre>switchport port-security mac-address (MAC of int)</pre>
@@ -433,20 +437,23 @@ or have it read automatically
 
 Use whichever method is instructed. Remember adding "no" before any command, erases that command from the run.conf. Example "no switchport port-security mac-address x.x.x" deletes x.x.x from the MAC list
 
-check yourself
+Troubleshooting
 <pre>show port-security
 show port-security address
 show port-security int ()</pre>
 
-
 ### DHCP
 Configure the IP,SM, DG as if the DHCP server was actually part of that VLAN. Yet for the IP address of the physical server, configure it based on the network its actually in.
 
-There are two types of serves in this world, ones that ping and ones that don't. You ping.
+***There are two types of servers in this world, ones that ping and ones that don't. You ping.***
+
+Remember how routers halt broadcasts? So how will your screaming computer infant find its DHCP mother on the other side of the router? Tell your interface to make an exception using this command:
 <pre>ip helper-address (IP of the DHCP server)</pre>
-This command is done within the int/sub-int of the router within the LAN that needs DHCP services.
+This command is done on the int/sub-int of the router facing the LAN that needs DHCP services.
 
 ### Routing
+
+Turn the thing off, install the HWICK2T on the right slot, and turn it back on.
 
 There are two ends to the red lightning! The CDE end and the DCT end. The CDE end, which has a clock, is the end where you need to set the clock rate. Clicking on the CDE cable means that it will connect the cable as a CDE end for the first connection and DCT to the second connection. Vise versa.
 <pre>int (s0/0/X)
@@ -476,6 +483,13 @@ All my homies hate Cisco Discovery Protocol (CDP) (because it broadcasts informa
 That one disables it globally. If you only need to do it on a specific interfaces use the following:
 <pre>int ()
 no cdp enable</pre>
+
+Troubleshooting
+<pre>show ip route
+show ip route static
+show ip ospf neighbor
+show cdp neighbors</pre>
+You can also try "ping" or "tracert" on PCs to find out which router is the OP.
 
 ### Access Control List (ACL)
 
