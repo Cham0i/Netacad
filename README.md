@@ -4,7 +4,7 @@
 
 A sandbox enviromenet is used for testing. A virtual Machine Monitor VMM or Hypervisort is used for virutalization. Type 1 hypervisors AKA Bare Metal, are installed directly on hardware. Type 2 AKA Hosted, are installed on top of a already existing OS (Virtual Box).
 
-Virtual Applience: VM with dedicated purpose. Specialized. Datastore: VM Storage device. [See the Manual for all the rest of the VMWare terms and architcture.]()
+Virtual Applience: VM with dedicated purpose. Specialized. Datastore: VM Storage device. [See the Manual for all the rest of the VMWare terms and architcture.](https://github.com/Cham0i/Netacad/blob/main/vi_architecture_wp.pdf)
 
 virtual center(VC): Server that manages hosts, datastore, and VMS w/GUI
 
@@ -438,9 +438,82 @@ check yourself
 show port-security address
 show port-security int ()</pre>
 
+
 ### DHCP
 Configure the IP,SM, DG as if the DHCP server was actually part of that VLAN. Yet for the IP address of the physical server, configure it based on the network its actually in.
 
 There are two types of serves in this world, ones that ping and ones that don't. You ping.
 <pre>ip helper-address (IP of the DHCP server)</pre>
-This command is done within the int of the router within the LAN that needs DHCP services.
+This command is done within the int/sub-int of the router within the LAN that needs DHCP services.
+
+### Routing
+
+There are two ends to the red lightning! The CDE end and the DCT end. The CDE end, which has a clock, is the end where you need to set the clock rate. Clicking on the CDE cable means that it will connect the cable as a CDE end for the first connection and DCT to the second connection. Vise versa.
+<pre>int (s0/0/X)
+clock rate (usually "128000")</pre>
+
+Getting into routing configuration
+<pre>router ospf (ProcessID)</pre>
+Set your router's ID
+<pre>router-id (IP)</pre>
+Use this command if it doesn't let you change the router ID. (This only happens if you advertise your networks first. Which is why you wanna set the router ID first)
+<pre>do clear ip ospf process</pre>
+Advertise your adjecent networks
+<pre>network (ip) (wc) area (AreaID)</pre>
+
+Disable OSPF updates to the interfaces which don't face other routers. This is to prevent OSPF from needlessly searching for other routers past that interface.
+<pre>passive-interface (int/sub-int)</pre>
+
+To configure a default route use this command
+<pre>ip route 0.0.0.0 0.0.0.0 (int. Usually a loopback)</pre>
+This is making a static route with an IP whos subnet mask makes the entire IP a Host IP (and thus cannot discriminate based on Network ID). In essence, saying "send every fucken IP you don't recognize to this interface.
+
+Share the rest this default route to your other router friends! The router will take the other router's unknown packets and deal with them...(using the above command)
+<pre>default-information originate</pre>
+
+All my homies hate Cisco Discovery Protocol (CDP) (because it broadcasts information to other Cisco products, which is a security concern)
+<pre>no cdp run</pre>
+That one disables it globally. If you only need to do it on a specific interfaces use the following:
+<pre>int ()
+no cdp enable</pre>
+
+### Access Control List (ACL)
+
+To add things to an access list. Running this command the first time will automatically create the access list if not created previously.
+<pre>access-list (ListNumber) (permit/deny) (IP) (WC)</pre>
+Remember that every access list implicitly ends with a "deny any", which is fine if you're making a white list (permit access to certain IPs). However, be sure to add the following command if you are making a black list (deny access to certain IPs)
+<pre>access-list (ListNumber) permit any</pre>
+
+Apply the ACL to the interface. On the test, this will mean having the ACL outbound from the sub-interface you are tring to protect. (You might wanna ping from the IP getting #cancelled to the one filing a restraining order before adding this command.)
+<pre>int ()
+ip access-group (ListNumber) (outbound/inbound)</pre>
+If you try the same ping again after using this command and you get hit with a "Reply from Router: Destination host unreachable." Congrats! The restraining order works.
+
+troubleshooting
+<pre>show access-list (ListNumber)
+show ip int ()</pre>
+Look on the 9th line down titled: "Outgoing access list is X"
+
+### Network Address Translation (NAT)
+
+*Configuring a Dynamic NAT*
+
+Create the access list that will allow the private IPs to dance around
+<pre>access-list (ListNumber) permit (PrivateIP) (WC)</pre>
+
+Find the Private IPs an extroverted partner (Public IP). The Public IPs will do all the talking if the Private IPs need something beyond the LAN (or past the router).
+<pre>ip nat pool (PoolName) (PublicIPMin) (PublicIPMax) netmask (SM)</pre>
+Basically the router will choose a Public IP within this Pool, from the ranges of X to Y, and use it to represent a specific Private IP when packets are sent past the router. Remember that the PoolName is case sensitive, capitalization matters.
+
+Determine which interfaces face the Private IP LAN and which ones face the scary outside world. For the LAN use:
+<pre>int (sub-int most likely)
+ip nat in</pre>
+For the horrors of the outside world ("WAN") use:
+<pre>int ()
+ip nat out</pre>
+
+Troubleshooting:
+Ping the loopback located outside the LAN and the use this command to verify:
+<pre>show ip nat translations</pre>
+
+To be continued...
