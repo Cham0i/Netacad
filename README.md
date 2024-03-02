@@ -46,9 +46,23 @@ The EIA/TIA established two different wiring standards for the RJ-45s. T-658A an
 
 ![alt text](https://github.com/Cham0i/Netacad/blob/main/Netacad_Pics/RJs.jpg)
 
-The second are Coxial Cables. These cables were primarly used for TV and satellite connections, but now also serve the additional purpose of providing internet connections. 
+The second are Coxial Cables. These cables were primarly used for TV and satellite connections, but now also serve the additional purpose of providing internet connections. They come in the following types:
+- BNC
+- F-Type
+- N-Type
+
+![alt text]()
 
 Lastly, optic fiber cables are the most modern and fastest type of medium. They use light to transfer signals between interfaces. 
+
+Fiber optic cables come in either single mode/laser mode or multimode/LED. Single mode cable cores are 9 microns thick whilst multimode cable cores are around 50 microns thick. Both are coated by 125 micron cladding. Single mode lasers only use one laser and therefore experience less signal loss; they can transmit up to 100Km. Multimode uses multiple lasers and can only transmit up to 500m. Single mode cables will be yellow, while multimode cables can be either orange or aqua color.
+
+Fiber optic cables have multiple connections including:
+- Staight Tip (ST) You stick-n-twist this connector
+- Lucent Connector (LC) These can some in [simplex or dublex versions](https://community.fs.com/article/simplex-vs-duplex-fiber-optic-cables.html).
+- Subscriber Connector (SC)
+
+![alt text]()
 
 These mediums have a certain bandwidth. The bandwidth is the maximum amount of data that can be transfered within a second. Higher Categories have higher data transfer rates and more twists per foot (twisted pair cables only) to prevent external electromagnetic interference and radio frequency interference.
 
@@ -66,6 +80,8 @@ This doesn't mean that data will always transfer at this given rate. Throughput 
 - The amount of data being sent and received over the connection
 - The types of data being transmitted
 - The *latency* (or the amount of time it takes for data to travel) created by the number of network devices encountered between source and destination
+
+Goodput is almost like throughput, except it excludes useless traffic overhead. It's essentially only the usefull data going to your interface.
 
 ### Types of Networks
 
@@ -164,15 +180,25 @@ AAAA:AAAA:AAAA:AAAA:AAAA:AAAA:AAAA:AAAA
 
 ### Who controls the internet?
 
-IANA
+IANA (Internet Assigned Numbers Authority) manages all IPs and allocates to RIR (Reginal Internet Registries). RIR allocates public IPs to ISP (Internet Service Providers) who provide Ipv4 blocks to organizations or other smaller ISPs.
 
 IETF (Internet Engineering Task Force) Documents proposition to Internet rules using RFC (Request for Comment) documents
 
-EIA/TIA
+EIA/TIA establised the T658A and T658B wiring standards.
 
-RIR allocates public IPs to ISP who provide Ipv4 block to organizations or other smaller ISPS
-
-IANA (Internet Assigned Numbers Authority) manages all IPs and allocates to RIR (Reginal Internet Registries)
+IEEE (Institute of Electrical and Electronics Engineers) Is in charge of for the LAN standards.
+- IEEE 802.11 Concerns Wireless LAN
+  - 802.11b AKA WiFi 1, 2.4Ghz, 11mps
+  - 802.11a AKA WiFi 2, 5Ghz, 52mps
+  - 802.11g AKA WiFi 3, 2.4 Ghz, 54mps
+  - 802.11n AKA WiFi 4 or Wireless N, Uses multiple signals and antenas, 600mps
+  - 802.11ac AKA WiFi 5, 2.4 and 5Ghz, 1300mps
+ 
+*Although WiFi 1 and 2 were developed at the same time, WiFi 2 was more popular due to its affordability.
+    
+- IEEE 802.15 Concerns Wireless PAN (Personal Area Network). This has low range, but also low power use. Associate this with Bluetooth
+  - IEEE 802.15.4 Concerns [Zigbee](https://www.techradar.com/news/what-is-zigbee-and-why-its-a-must-have-for-your-smart-home)
+- IEEE 802.16 Concerns [WiMAX](https://www.lifewire.com/wimax-wireless-networking-818321)
 
 ### Classfull, Unicast, Multicast, Broadcast Addressing and Private IPs
 
