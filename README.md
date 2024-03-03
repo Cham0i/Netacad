@@ -51,7 +51,7 @@ The second are Coxial Cables. These cables were primarly used for TV and satelli
 - F-Type
 - N-Type
 
-![alt text]()
+![alt text](https://github.com/Cham0i/Netacad/blob/main/Netacad_Pics/Coaxial.jpg)
 
 Lastly, optic fiber cables are the most modern and fastest type of medium. They use light to transfer signals between interfaces. 
 
@@ -62,7 +62,7 @@ Fiber optic cables have multiple connections including:
 - Lucent Connector (LC) These can some in [simplex or dublex versions](https://community.fs.com/article/simplex-vs-duplex-fiber-optic-cables.html).
 - Subscriber Connector (SC)
 
-![alt text]()
+![alt text](https://github.com/Cham0i/Netacad/blob/main/Netacad_Pics/Fiber.jpg)
 
 These mediums have a certain bandwidth. The bandwidth is the maximum amount of data that can be transfered within a second. Higher Categories have higher data transfer rates and more twists per foot (twisted pair cables only) to prevent external electromagnetic interference and radio frequency interference.
 
@@ -162,7 +162,25 @@ A similar concept is used when routers distribute packets. A router uses Routing
 
 ![alt text](https://github.com/Cham0i/Netacad/blob/main/Netacad_Pics/RoutingTable.jpg)
 
-The static default route is where packages are automatically routed in case the router doesn't recognize the IP. The default setting is usually to drop the packet.
+![alt text](https://github.com/Cham0i/Netacad/blob/main/Netacad_Pics/RoutingEntry.png)
+
+Common Codes
+- L Local LAN
+- C Directly Connected via Interface
+- S Static Route
+- O Dynamically created using OSPF
+- * Default Route
+
+Common Adminstrative Distances (The value is used in routers to rank routes from most preferred to least preferred.)
+0. Direct
+1. Static
+5. EIGRP Summary Route
+90. EIGRP Internal
+110. OSPF
+120. RIP  
+170. EIGRP External
+
+The default static route is where packages are automatically routed in case the router doesn't recognize the IP. The default setting is usually to drop the packet.
 [You can find additional information about routing protocols here](https://community.cisco.com/t5/networking-knowledge-base/dynamic-routing-protocols-ospf-eigrp-ripv2-is-is-bgp/ta-p/4511577)
 
 ### Types of Data
@@ -334,6 +352,8 @@ LAN Interfaces are where the Networks or LANS are connected to the router
 
 adware is spyware?
 
+Shell is CLI or GUI requests from user to computer. Kernal communicates hardware and software; manages how resources meet software requirements. Terminal Emulation; Putty.
+
 ## Introduction to Cisco Networking
 
 A keyword is a specific parameter defined by the OS. A arguement is a variable that can be inputed by the user.
@@ -404,26 +424,33 @@ v
 
 To require a 'long' password
 <pre>security passwords min-length (length of characters)</pre>
+
 To deter brute force attacks.
 <pre>login block-for (seconds blocked) attempts (max number of attempts) within (period of seconds that trigger the block)</pre>
+
 To edit how long a session lasts before reverting to user EXEC mode
 <pre>exec-timeout (min) (sec)</pre>
-(Psst. 'exec-timeout 0 0' is how you disable timeouts)
+(Psst. 'exec-timeout 0 0' is how you disable timeouts. This is done under console or VTY)
 
 Stops the annoying cable messages from appearing
 <pre>logging synchronous</pre>
+(This is done under console or VTY)
 
 ### Inter-VLAN routing
+
 Create vlans in your switch
 <pre>vlan ()
 name ()</pre>
+
 Assign IP to VLAN
 <pre>(Nah you should know this by now. Scroll up nerd)</pre>
-To make interfaces into access. Remember to use "int range" if you need to edit multiple interfaces
+
+To make interfaces into access (only between end-devices and switches). Remember to use "int range" if you need to edit multiple interfaces. 
 <pre>int (f0/1,2,3,etc.)
 switchport mode access
 switchport access vlan (the vlan number this int belongs to)</pre>
-To make interfaces into trunks. Only use for int between switches, on VOIP, or switch to Router when sub-interfaces are involved
+
+To make interfaces into trunks. Only use for interfaces between switches, on VOIP, or switch to Router when sub-interfaces are involved.
 <pre>switchport mode trunk
 switchport trunk allowed vlan (VLAN numbers here "10,20,999" etc.)
 switchport native vlan (NativeVLAN Number here)</pre>
@@ -444,9 +471,11 @@ Remember to "no shut" the phyiscal interfaces that supports the sub interfaces. 
 Lastly, remember to use the Management VLAN sub interface as the "ip default-gateway"
 
 ### Port Security
+
 ALWAYS SHUT BEFORE YOU ENABLE PORT SEC!!!!!
 <pre>int ()
 shut</pre>
+
 Now we may begin. Do this to enable port security
 <pre>switchport port-security</pre>
 If the port is dynamic and you can't enable port security, that means the port hasn't been configured to access mode. See above.
@@ -454,7 +483,7 @@ If the port is dynamic and you can't enable port security, that means the port h
 If you need a different maximum amount of MAC addresses
 <pre>switch port-security maximum (max number of MACs recorded) </pre>
 
-To actually add MACs you can either do it manually
+To actually add MACs you can either do it manually...
 <pre>switchport port-security mac-address (MAC of int)</pre>
 Use "ipconfig /all" to find the MAC address of a PC int or "ip int ()" for cisco device int
 
@@ -497,11 +526,11 @@ Advertise your adjecent networks
 Disable OSPF updates to the interfaces which don't face other routers. This is to prevent OSPF from needlessly searching for other routers past that interface.
 <pre>passive-interface (int/sub-int)</pre>
 
-To configure a default route use this command
+Configure a default static route using this command
 <pre>ip route 0.0.0.0 0.0.0.0 (int. Usually a loopback)</pre>
-This is making a static route with an IP whos subnet mask makes the entire IP a Host IP (and thus cannot discriminate based on Network ID). In essence, saying "send every fucken IP you don't recognize to this interface.
+This is making a static route with an IP whos subnet mask makes the entire IP a Host IP (and thus cannot discriminate based on Network ID). In essence, saying "send every fucken IP you don't recognize to this interface."
 
-Share the rest this default route to your other router friends! The router will take the other router's unknown packets and deal with them...(using the above command)
+To share this default route to your other router friends! The router will take the other router's unknown packets and deal with them...(using the above command)
 <pre>default-information originate</pre>
 
 All my homies hate Cisco Discovery Protocol (CDP) (because it broadcasts information to other Cisco products, which is a security concern)
