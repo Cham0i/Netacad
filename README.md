@@ -565,7 +565,17 @@ Look on the 9th line down titled: "Outgoing access list is X"
 
 ### Network Address Translation (NAT)
 
+A Inside local IP turns into a Inside Global IP, which communicates with a Outside Global and potentially to a Outside Local. Another way to look at it is that Local means Private and Global means Public; whilst Inside means your LAN and Outside means someone else's LAN. There are three types of ways to translate a Inside Local IP to a Inside Global IP: Static NAT, Dynamic NAT, and PAT/NAT Overload. 
+
+*Configuring a Static NAT*
+
+With Static NAT, every local IP is manually configured to use a certain global IP. 
+
 *Configuring a Dynamic NAT*
+
+Global IPs are randomly assigned to Local IPs inside your network based on a preconfigured list/pool of Global addresses. Almost like DCHP, but for addresses outside your LAN
+
+![alt text](https://github.com/Cham0i/Netacad/blob/main/Netacad_Pics/NAT.jpg)
 
 Create the access list that will allow the private IPs to dance around
 <pre>access-list (ListNumber) permit (PrivateIP) (WC)</pre>
@@ -580,6 +590,17 @@ ip nat in</pre>
 For the horrors of the outside world ("WAN") use:
 <pre>int ()
 ip nat out</pre>
+
+*Configuring PAT/ NAT Overload*
+
+Port Address Translation/ NAT Overload uses sockets to differentiate between multiple Local addresses using the same Global address. Port numbers (just like in minecraft.)
+
+![alt text](https://github.com/Cham0i/Netacad/blob/main/Netacad_Pics/Minecraft.jpg)
+
+(If you and your brother hosted Minecraft servers at the same time, using PAT, both of your servers would have the SAME global IP. However your friends would use one port number and your brother's friends would connect using another port number)
+
+It is the same way as Dynamic NAT except you add "overload" to this command:
+<pre>ip nat pool (PoolName) (PublicIPMin) (PublicIPMax) netmask (SM) overload</pre>
 
 Troubleshooting:
 Ping the loopback located outside the LAN and the use this command to verify:
