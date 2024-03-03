@@ -438,6 +438,10 @@ Stops the annoying cable messages from appearing
 
 ### Inter-VLAN routing
 
+Legacy Inter-Vlan is when you use one interface per VLAN. With router-on-a-stick method you can divide one interface into multiple subinterfaces each corresponding to a certain VLAN. A layer 3 switch can do this with SVI (Switched Virtual Interface) to support both routing and switch capabilities. Layer 3 switches scale better, but are more expensive.
+
+*Router-on-a-stick Method*
+
 Create vlans in your switch
 <pre>vlan ()
 name ()</pre>
@@ -456,12 +460,6 @@ switchport trunk allowed vlan (VLAN numbers here "10,20,999" etc.)
 switchport native vlan (NativeVLAN Number here)</pre>
 The "native VLAN mismatch discovered" error happens when the native VLANs are not the same between interfaces. You might not even have to use the last command if no Native VLAN is present
 
-Troubleshooting *Check yourself before yo wreck yourself*
-<pre>show vlan
-show int trunk
-show int (f0/x) switchport
-</pre>
-
 To make the VLANs talk amongst each other, configure the router using sub interfaces
 <pre>int (f0/1.X  X is typically the vlan number)
 encapsulation dot1q (vlan number)
@@ -469,6 +467,15 @@ ip add (IP) (SM)</pre>
 Remember to "no shut" the phyiscal interfaces that supports the sub interfaces. (f0/1 or f0/2 or whatever)
 
 Lastly, remember to use the Management VLAN sub interface as the "ip default-gateway"
+
+Troubleshooting *Check yourself before yo wreck yourself*
+<pre>show vlan brief
+show int trunk
+show int (f0/x) switchport
+</pre>
+
+If all else fails...you can delete all the VLANs using this:
+<pre>delete flash:vlan.dat</pre>
 
 ### Port Security
 
@@ -505,6 +512,11 @@ Configure the IP,SM, DG as if the DHCP server was actually part of that VLAN. Ye
 Remember how routers halt broadcasts? So how will your screaming computer infant find its DHCP mother on the other side of the router? Tell your interface to make an exception using this command:
 <pre>ip helper-address (IP of the DHCP server)</pre>
 This command is done on the int/sub-int of the router facing the LAN that needs DHCP services.
+
+Other Commands:
+<pre>ip add dhcp
+/optain [To get DHCP]
+/renew [to renew DHCP IP]</pre>
 
 ### Routing
 
