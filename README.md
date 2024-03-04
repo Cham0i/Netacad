@@ -458,7 +458,9 @@ To make interfaces into trunks. Only use for interfaces between switches, on VOI
 <pre>switchport mode trunk
 switchport trunk allowed vlan (VLAN numbers here "10,20,999" etc.)
 switchport native vlan (NativeVLAN Number here)</pre>
-The "native VLAN mismatch discovered" error happens when the native VLANs are not the same between interfaces. You might not even have to use the last command if no Native VLAN is present
+The "native VLAN mismatch discovered" error happens when the native VLANs are not the same between interfaces. You might not even have to use the last command if no Native VLAN is present.
+
+Frames belonging to the Native VLAN are sent accross the trunk link untagged. Devices that don't understand dot1q tag will be able to understand the Native VLANs' untagged frames. The Management VLAN keeps SSH and other forms of control and management of network devices from being viewed or controled by other VLANs; essentially the admin VLAN. A Voice VLAN/ VOIP VLAN needs assured bandwitdth to opperate which is why it will be prioritized above others. The delay on this VLAN must be less than 150 ms from the source to the destination.
 
 To make the VLANs talk amongst each other, configure the router using sub interfaces
 <pre>int (f0/1.X  X is typically the vlan number)
@@ -528,8 +530,10 @@ clock rate (usually "128000")</pre>
 
 Getting into routing configuration
 <pre>router ospf (ProcessID)</pre>
-Set your router's ID
+
+Set your router's ID. If not, your router will adopt the highest physical interface IP. Alternatively it will choose the highest loopback IP.
 <pre>router-id (IP)</pre>
+
 Use this command if it doesn't let you change the router ID. (This only happens if you advertise your networks first. Which is why you wanna set the router ID first)
 <pre>do clear ip ospf process</pre>
 Advertise your adjecent networks
@@ -559,6 +563,8 @@ show cdp neighbors</pre>
 You can also try "ping" or "tracert" on PCs to find out which router is the OP.
 
 ### Access Control List (ACL)
+
+Restrict drops Packets and sends a warning. Protect is restrict without the warning.
 
 To add things to an access list. Running this command the first time will automatically create the access list if not created previously.
 <pre>access-list (ListNumber) (permit/deny) (IP) (WC)</pre>
@@ -617,5 +623,33 @@ It is the same way as Dynamic NAT except you add "overload" to this command:
 Troubleshooting:
 Ping the loopback located outside the LAN and the use this command to verify:
 <pre>show ip nat translations</pre>
+
+
+### Troubleshooting Hints
+
+Consider the....Nature of Problems - Equipment - Configuration and Topology - Previous Troubleshooting
+
+Steps of the Troubleshooting Process:
+
+1. Identify the problem
+2. Develop a theory
+3. Test the theory
+4. Creat a plan
+5. Implement the solution
+6. Verify everything works as intended
+7. Document your troubleshoot
+
+- Even if you have an interface configured as a trunk, if you still have have access mode settings applied, the trunk will not work. Delete the unecessary access mode configuration by repeating the command with the "no" prefix.
+- A PC without a default gateway is able to ping everything within its LAN including its intended default gateway interface, but cannot ping past the router. If this sounds like you, maybe idk check to see if you put the correct default gateway...
+- Associate "Reply from Router: Destination host unreachable." error with ACL. If you see this, and you weren't supposed to, double check your access list. Maybe you blocked the wrong IP or forgot to add "permit any" command
+- On that same note, a port security misconfiguration probably won't tell you anything. If you manually configured a MAC, verify your MAC is correct by going to the PC and using "ipconfig /all". If you didn't use sticky nor manually entered a MAC...well...maybe enter a MAC guy!
+- Never forget the ip helper address for DHCP. Remember to put it on the sub-interface that is the default gateway for the LAN that needs DHCP services.
+- For Inter-VLAN routing, the switches' ip default gateway is always the sub-interface for the Management VLAN.
+- NEVER add port security to trunk interfaces. Delete any trunk configurations if there is any (using "no" prefix)
+- Sometimes turning an interface on and off fixes an issue (shut and no shut)
+- Even if all your subinterfaces are on, your physical interface that the subinterfaces are based of might still be shut. No shut that bitch. (g0/1.10, g0/1.20 are no shut; but if g0/1 is shut those subinterfaces won't work)
+- If you ever feel stressed remember that your family won't see you soon if you fail. Keep trying!
+
+#reload
 
 To be continued...
